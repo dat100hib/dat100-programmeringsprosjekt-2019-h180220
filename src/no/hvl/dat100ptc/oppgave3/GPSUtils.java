@@ -76,7 +76,18 @@ public class GPSUtils {
 
 		double d;
 		double latitude1, longitude1, latitude2, longitude2;
-
+		
+		double latitudeRad1 = Math.toRadians(latitude1);
+		double latitudeRad2 = Math.toRadians(latitude2);
+		double longitudeRad1 = Math.toRadians(longitude1);
+		double longitudeRad2 = Math.toRadians(longitude2);
+		
+		double deltaLat = latitudeRad2 - latitudeRad1;
+		double deltaLong = longitudeRad2 - longitudeRad1;
+		double a = Math.exp((Math.sin(deltaLat/2))) + (Math.cos(latitudeRad1)*Math.cos(latitudeRad2)*Math.exp(Math.sin(deltaLong/2)));
+		double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		d = R * c;
+ 
 		// TODO - START
 
 		throw new UnsupportedOperationException(TODO.method());
