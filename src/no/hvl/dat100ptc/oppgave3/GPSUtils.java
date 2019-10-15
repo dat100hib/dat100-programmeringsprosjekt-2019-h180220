@@ -77,20 +77,20 @@ public class GPSUtils {
 		double d;
 		double latitude1, longitude1, latitude2, longitude2;
 		
-		double latitudeRad1 = Math.toRadians(latitude1);
-		double latitudeRad2 = Math.toRadians(latitude2);
-		double longitudeRad1 = Math.toRadians(longitude1);
-		double longitudeRad2 = Math.toRadians(longitude2);
+		latitude1 = Math.toRadians(gpspoint1.getLatitude());
+		latitude2 = Math.toRadians(gpspoint2.getLatitude());
+		longitude1 = Math.toRadians(gpspoint1.getLongitude());
+		longitude2 = Math.toRadians(gpspoint2.getLongitude());
 		
-		double deltaLat = latitudeRad2 - latitudeRad1;
-		double deltaLong = longitudeRad2 - longitudeRad1;
-		double a = Math.exp((Math.sin(deltaLat/2))) + (Math.cos(latitudeRad1)*Math.cos(latitudeRad2)*Math.exp(Math.sin(deltaLong/2)));
+		double deltaLat = latitude2 - latitude1;
+		double deltaLong = longitude2 - longitude1;
+		double a = Math.pow((Math.sin(deltaLat/2)), 2) + (Math.cos(latitude1)*Math.cos(latitude2)*Math.pow(Math.sin(deltaLong/2), 2));
 		double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		d = R * c;
+		
+		return d;
  
 		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
 
 		// TODO - SLUTT
 
@@ -102,8 +102,12 @@ public class GPSUtils {
 		double speed;
 
 		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
+		
+		secs = gpspoint2.getTime() - gpspoint1.getTime();
+		speed = distance(gpspoint1, gpspoint2)/secs;
+		
+		return speed * 3.6;
+		
 
 		// TODO - SLUTT
 
@@ -115,8 +119,16 @@ public class GPSUtils {
 		String TIMESEP = ":";
 
 		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
+		int hour = secs/(60*60);
+		String hr = String.format("%02d", hour);
+		int min = (secs - hour*60*60)/60;
+		String minutes = String.format("%02d", min);
+		int sec = secs - hour*60*60 - min*60;
+		String seconds = String.format("%02d", sec);
+		
+		timestr = hr + TIMESEP + minutes + TIMESEP + seconds;
+		return String.format("%10s", timestr);
+			
 		
 		// TODO - SLUTT
 
@@ -128,9 +140,10 @@ public class GPSUtils {
 		String str;
 
 		// TODO - START
+		str = String.format("%.2f", d);
+		return String.format("%" + TEXTWIDTH + "s", str).replace(',', '.');
 
-		throw new UnsupportedOperationException(TODO.method());
-
+		
 		// TODO - SLUTT
 		
 	}

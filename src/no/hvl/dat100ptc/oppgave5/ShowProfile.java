@@ -47,8 +47,11 @@ public class ShowProfile extends EasyGraphics {
 		// ybase indicates the position on the y-axis where the columns should start
 		
 		// TODO - START
-
-		throw new UnsupportedOperationException(TODO.method());
+		for (int i = 0; i < gpspoints.length; i++) {
+			setColor(0, 0, 255);
+			int elevation = (int) gpspoints[i].getElevation();
+			drawLine(i + MARGIN, ybase - elevation, i + MARGIN, ybase);
+		}
 	
 		// TODO - SLUTT
 	}
